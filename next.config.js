@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ['image.tmdb.org'],
   },
+  experimental: {
+    outputStandalone: true,
+  },
 };
 
 module.exports = nextConfig;
