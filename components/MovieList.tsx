@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { iMovie } from '../types/movie';
@@ -72,7 +73,8 @@ export const MovieList: React.FC = () => {
 
   return (
     <>
-      <input type="text" name="name" id="name" className="sticky top-4 z-10 my-4 block w-full rounded-full border-gray-300 px-4 shadow-sm sm:text-sm" placeholder="Search" value={query} onChange={onChange} />
+      <Head>{query && <title>{query} | MovieTime</title>}</Head>
+      <input type="text" name="name" id="name" className="sticky top-4 z-10 my-4 block w-full rounded-lg border-gray-300 px-4 shadow-sm sm:text-sm" placeholder="Search" value={query} onChange={onChange} />
       {!query && <div className="text-sm">Start typing to search for movies</div>}
       {isLoading ? (
         <div className="absolute z-10 flex h-full w-full items-center justify-center bg-white bg-opacity-60">
