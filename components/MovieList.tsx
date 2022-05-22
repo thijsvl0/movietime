@@ -1,11 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import SearchContext from '../context/SearchContext';
 import { iMovie } from '../types/movie';
 import { Movie } from './Movie';
-
-interface iProps {
-  query: string;
-}
 
 const containerVariants = {
   visible: {
@@ -30,9 +27,11 @@ const itemVariants = {
   },
 };
 
-export const MovieList: React.FC<iProps> = ({ query }) => {
+export const MovieList: React.FC = () => {
   const [movies, setMovies] = useState<iMovie[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { query } = useContext(SearchContext);
 
   useEffect(() => {
     setIsLoading(true);
