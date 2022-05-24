@@ -1,12 +1,9 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { useState } from 'react';
-import SearchContext from '../context/SearchContext';
+import IndexProvider from '../context';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [query, setQuery] = useState<string>('');
-
   return (
     <>
       <Head>
@@ -18,9 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#ffffff" />
         <title>MovieTime</title>
       </Head>
-      <SearchContext.Provider value={{ query, setQuery }}>
+      <IndexProvider>
         <Component {...pageProps} />
-      </SearchContext.Provider>
+      </IndexProvider>
     </>
   );
 }

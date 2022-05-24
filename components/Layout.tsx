@@ -1,15 +1,14 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect, useState } from 'react';
-import SearchContext from '../context/SearchContext';
+import React, { useContext, useEffect } from 'react';
+import { SearchContext } from '../context/Search';
 
 interface iProps {
   children: React.ReactNode;
-  handleQuery?(query: string): void;
 }
 
-export const Layout: React.FC<iProps> = ({ children, handleQuery }) => {
+export const Layout: React.FC<iProps> = ({ children }) => {
   const { query, setQuery } = useContext(SearchContext);
 
   const router = useRouter();
@@ -17,10 +16,6 @@ export const Layout: React.FC<iProps> = ({ children, handleQuery }) => {
   useEffect(() => {
     if (router.query.query) setQuery(decodeURIComponent(router.query.query as string));
   }, [router.query, setQuery]);
-
-  useEffect(() => {
-    handleQuery && handleQuery(query);
-  }, [query, handleQuery]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value) {

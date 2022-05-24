@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useContext, useEffect, useState } from 'react';
-import SearchContext from '../context/SearchContext';
-import { iMovie } from '../types/movie';
+import React, { useContext } from 'react';
+import { MoviesContext } from '../context/Movies';
+import { SearchContext } from '../context/Search';
 import { Movie } from './Movie';
 
 const containerVariants = {
@@ -28,29 +28,8 @@ const itemVariants = {
 };
 
 export const MovieList: React.FC = () => {
-  const [movies, setMovies] = useState<iMovie[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const { movies, isLoading } = useContext(MoviesContext);
   const { query } = useContext(SearchContext);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setMovies([]);
-
-    if (!query) return;
-
-    const fetchMovies = async () => {
-      const res = await fetch(`/api/search/${query}`);
-      const data = await res.json();
-
-      setIsLoading(false);
-      setMovies(data.results);
-    };
-
-    const queryDebounce = setTimeout(fetchMovies, 500);
-
-    return () => clearTimeout(queryDebounce);
-  }, [query]);
 
   return (
     <>
