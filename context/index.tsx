@@ -1,4 +1,5 @@
 import React from 'react';
+import LayoutProvider from './Layout';
 import SearchProvider from './Search';
 import MoviesProvider from './Movies';
 
@@ -8,9 +9,11 @@ interface iProps {
 
 const IndexProvider: React.FC<iProps> = ({ children }) => {
   return (
-    <SearchProvider>
-      <MoviesProvider>{children}</MoviesProvider>
-    </SearchProvider>
+    <LayoutProvider>
+      <SearchProvider>
+        <MoviesProvider>{children}</MoviesProvider>
+      </SearchProvider>
+    </LayoutProvider>
   );
 };
 

@@ -6,7 +6,7 @@ import { MovieList } from '../components/MovieList';
 import { SearchContext } from '../context/Search';
 
 const Home: NextPage = () => {
-  const { query, setQuery } = useContext(SearchContext);
+  const { query } = useContext(SearchContext);
 
   return (
     <>
