@@ -1,6 +1,7 @@
 import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next';
+import Head from 'next/head';
 import { Layout } from '../../components/Layout';
-import { fetch } from '../../lib/tmdb';
+import { call } from '../../lib/tmdb';
 import { iMovie } from '../../types/movie';
 
 interface iProps {
@@ -9,16 +10,21 @@ interface iProps {
 
 const Movie: NextPage<iProps> = ({ data }) => {
   return (
-    <Layout>
-      <>{data.title}</>
-    </Layout>
+    <>
+      <Head>
+        <title>{data.title} | MovieTime</title>
+      </Head>
+      <Layout>
+        <>{data.title}</>
+      </Layout>
+    </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
 
-  const data = await fetch(`/movie/${id}`);
+  const data = await call(`/movie/${id}`);
 
   if (!data || data.success == false) return { notFound: true };
 

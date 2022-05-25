@@ -1,7 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import useSWR from 'swr';
 import { iMovie } from '../types/movie';
-import { fetcher } from '../utils';
 import { SearchContext } from './Search';
 
 interface iProps {
@@ -19,27 +17,23 @@ export const MoviesContext = React.createContext<iReturn>({ movies: [], isLoadin
 
 const Provider: React.FC<iProps> = ({ children }) => {
   const [movies, setMovies] = useState<iMovie[]>([]);
-  const [shouldLoad, setShouldLoad] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { query } = useContext(SearchContext);
 
-  const { data } = useSWR(shouldLoad ? `/api/search/${query}` : null, fetcher);
-
-  useEffect(() => {
-    if (!data) return;
-
-    setMovies(data.results);
-    setIsLoading(false);
-    setShouldLoad(false);
-  }, [data]);
-
   useEffect(() => {
     setIsLoading(true);
+    setMovies([]);
+
     if (!query) return;
 
-    const queryDebounce = setTimeout(() => setShouldLoad(true), 500);
-
+    const fetchMovies = async () => {
+      const res = await fetch(`/api/search/${query}`);
+      const data = await res.json();
+      setIsLoading(false);
+      setMovies(data.results);
+    };
+    const queryDebounce = setTimeout(fetchMovies, 500);
     return () => clearTimeout(queryDebounce);
   }, [query]);
 
