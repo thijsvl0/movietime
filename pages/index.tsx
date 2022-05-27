@@ -11,9 +11,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>{query && <title>{query} | MovieTime</title>}</Head>
-      <Layout>
-        <MovieList />
-      </Layout>
+      <MovieList />
     </>
   );
 };

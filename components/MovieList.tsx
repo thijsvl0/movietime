@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext } from 'react';
-import { LayoutContext } from '../context/Layout';
 import { MoviesContext } from '../context/Movies';
 import { SearchContext } from '../context/Search';
 import { Movie } from './Movie';
@@ -8,7 +7,7 @@ import { Movie } from './Movie';
 const containerVariants = {
   visible: {
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.1,
     },
   },
 };
@@ -31,7 +30,6 @@ const itemVariants = {
 export const MovieList: React.FC = () => {
   const { movies } = useContext(MoviesContext);
   const { query } = useContext(SearchContext);
-  const { isLoading } = useContext(LayoutContext);
 
   return (
     <>

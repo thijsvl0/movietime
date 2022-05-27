@@ -20,9 +20,7 @@ const Movie: NextPage = () => {
       <Head>
         <title>{movie && movie.title} | MovieTime</title>
       </Head>
-      <Layout>
-        <>{movie && movie.title}</>
-      </Layout>
+      {movie && movie.title}
     </>
   );
 };

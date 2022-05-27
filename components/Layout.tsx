@@ -44,8 +44,8 @@ export const Layout: React.FC<iProps> = ({ children }) => {
         <motion.main className="-mt-32" key={router.pathname} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeInOut', duration: 0.25 }}>
           <div className="relative mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
             {isLoading ? (
-              <div className="absolute z-10 flex h-full w-full items-center justify-center bg-white bg-opacity-60">
-                <div className="flex items-center">
+              <div className="absolute z-10 flex h-full w-full items-center justify-center">
+                <div className="flex items-center rounded-lg bg-white px-4 py-3 shadow">
                   <span className="mr-4 text-2xl">Loading...</span>
                   <svg className="h-5 w-5 animate-spin text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
