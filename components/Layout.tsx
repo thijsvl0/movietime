@@ -1,15 +1,14 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect } from 'react';
 import { SearchContext } from '../context/Search';
 import { AnimatePresence, motion } from 'framer-motion';
 import { LayoutContext } from '../context/Layout';
 
-interface iProps {
+interface Props {
   children: React.ReactNode;
 }
 
-export const Layout: React.FC<iProps> = ({ children }) => {
+export const Layout: React.FC<Props> = ({ children }) => {
   const { query, setQuery } = useContext(SearchContext);
   const { isLoading } = useContext(LayoutContext);
 

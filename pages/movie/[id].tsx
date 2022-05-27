@@ -1,28 +1,33 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
-import { Layout } from '../../components/Layout';
-import { MoviesContext } from '../../context/Movies';
-import { iMovie } from '../../types/movie';
+import { MovieDetails } from 'tmdb-ts';
+import { connect } from '../../lib/tmdb';
 
-const Movie: NextPage = () => {
-  const [movie, setMovie] = useState<iMovie>();
-  const { getMovie } = useContext(MoviesContext);
+interface Props {
+  movie: MovieDetails;
+}
 
-  const router = useRouter();
-  const { id } = router.query;
-
-  useEffect(() => {}, []);
-
+const Movie: NextPage<Props> = ({ movie }) => {
   return (
     <>
       <Head>
         <title>{movie && movie.title} | MovieTime</title>
       </Head>
-      {movie && movie.title}
+      {movie.overview}
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const { id } = query;
+
+  const movie = await connect().movies.details(parseInt(id as string));
+
+  return {
+    props: {
+      movie,
+    },
+  };
 };
 
 export default Movie;

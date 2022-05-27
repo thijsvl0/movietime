@@ -1,22 +1,21 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { iMovie } from '../types/movie';
+import React, { useContext, useEffect, useState } from 'react';
+import { Movie } from 'tmdb-ts';
 import { LayoutContext } from './Layout';
 import { SearchContext } from './Search';
 
-interface iProps {
+interface Props {
   children: React.ReactNode;
 }
 
-interface iReturn {
-  movies: iMovie[];
-  getMovie(id: number): iMovie | undefined;
-  setMovies: React.Dispatch<React.SetStateAction<iMovie[]>>;
+interface Return {
+  movies: Movie[];
+  setMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
 }
 
-export const MoviesContext = React.createContext<iReturn>({ movies: [], getMovie: () => undefined, setMovies: () => {} });
+export const MoviesContext = React.createContext<Return>({ movies: [], setMovies: () => {} });
 
-const Provider: React.FC<iProps> = ({ children }) => {
-  const [movies, setMovies] = useState<iMovie[]>([]);
+const Provider: React.FC<Props> = ({ children }) => {
+  const [movies, setMovies] = useState<Movie[]>([]);
   const { setIsLoading } = useContext(LayoutContext);
 
   const { query } = useContext(SearchContext);
@@ -45,15 +44,7 @@ const Provider: React.FC<iProps> = ({ children }) => {
     };
   }, [query, setIsLoading]);
 
-  const getMovie = (id: number) => {
-    const movie = movies.find((movie) => movie.id === id);
-
-    if (!movie) return;
-
-    return movie;
-  };
-
-  return <MoviesContext.Provider value={{ movies, getMovie, setMovies }}>{children}</MoviesContext.Provider>;
+  return <MoviesContext.Provider value={{ movies, setMovies }}>{children}</MoviesContext.Provider>;
 };
 
 export default Provider;

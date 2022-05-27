@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 
-interface iProps {
+interface Props {
   children: React.ReactNode;
 }
 
-interface iReturn {
+interface Return {
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const SearchContext = React.createContext<iReturn>({ query: '', setQuery: () => {} });
+export const SearchContext = React.createContext<Return>({ query: '', setQuery: () => {} });
 
-const Provider: React.FC<iProps> = ({ children }) => {
+const Provider: React.FC<Props> = ({ children }) => {
   const [query, setQuery] = useState<string>('');
 
   return <SearchContext.Provider value={{ query, setQuery }}>{children}</SearchContext.Provider>;

@@ -1,18 +1,11 @@
-import { iMovie } from '../../../types/movie';
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { call } from '../../../lib/tmdb';
+import { Search, Movie } from 'tmdb-ts';
+import { connect } from './../../../lib/tmdb';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-interface iData {
-  results: iMovie[];
-  error?: string;
-}
+export const handler = async (req: NextApiRequest, res: NextApiResponse<Search<Movie>>) => {
+  const data = await connect().search.movies({ query: req.query.query as string });
 
-export const handler = async (req: NextApiRequest, res: NextApiResponse<iData>) => {
-  const data = await call('/search/movie', `&query=${req.query.query}`);
-
-  if (!data || data.success == false) return res.status(404).json({ results: [], error: 'No results found' });
-
-  res.status(200).json({ results: data.results });
+  res.status(200).json(data);
 };
 
 export default handler;

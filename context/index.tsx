@@ -3,11 +3,11 @@ import LayoutProvider from './Layout';
 import SearchProvider from './Search';
 import MoviesProvider from './Movies';
 
-interface iProps {
+interface Props {
   children: React.ReactNode;
 }
 
-const IndexProvider: React.FC<iProps> = ({ children }) => {
+const IndexProvider: React.FC<Props> = ({ children }) => {
   return (
     <LayoutProvider>
       <SearchProvider>

@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { iMovie } from '../types/movie';
-interface iProps {
-  movie: iMovie;
+import { Movie } from 'tmdb-ts';
+interface Props {
+  movie: Movie;
 }
 
-export const Movie: React.FC<iProps> = ({ movie }) => {
+export const MovieListItem: React.FC<Props> = ({ movie }) => {
   return (
     <Link href={`/movie/${movie.id}`}>
       <div className="group h-full cursor-pointer rounded-lg bg-white shadow transition-colors duration-500 hover:bg-gray-100 ">

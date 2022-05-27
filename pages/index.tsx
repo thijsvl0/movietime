@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useContext } from 'react';
-import { Layout } from '../components/Layout';
 import { MovieList } from '../components/MovieList';
 import { SearchContext } from '../context/Search';
 

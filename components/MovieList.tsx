@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext } from 'react';
 import { MoviesContext } from '../context/Movies';
 import { SearchContext } from '../context/Search';
-import { Movie } from './Movie';
+import { MovieListItem } from './MovieListItem';
 
 const containerVariants = {
   visible: {
@@ -39,7 +39,7 @@ export const MovieList: React.FC = () => {
             {movies && movies.length ? (
               movies.map((movie) => (
                 <motion.div layout variants={itemVariants} key={movie.id}>
-                  <Movie movie={movie} />
+                  <MovieListItem movie={movie} />
                 </motion.div>
               ))
             ) : (
