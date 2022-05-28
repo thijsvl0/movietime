@@ -34,15 +34,11 @@ export const MovieList: React.FC<Props> = ({ movies }) => {
   return (
     <AnimatePresence exitBeforeEnter>
       <motion.div variants={containerVariants} initial="hidden" animate="visible" className="md:grid-col-3 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {movies && movies.length ? (
-          movies.map((movie) => (
-            <motion.div layout variants={itemVariants} key={movie.id}>
-              <MovieListItem movie={movie} />
-            </motion.div>
-          ))
-        ) : (
-          <div className="text-sm">No movies found</div>
-        )}
+        {movies.map((movie) => (
+          <motion.div layout variants={itemVariants} key={movie.id}>
+            <MovieListItem movie={movie} />
+          </motion.div>
+        ))}
       </motion.div>
     </AnimatePresence>
   );
