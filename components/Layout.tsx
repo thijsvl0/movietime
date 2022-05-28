@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect } from 'react';
-import { SearchContext } from '../context/Search';
 import { AnimatePresence, motion } from 'framer-motion';
 import { LayoutContext } from '../context/Layout';
 
@@ -9,23 +8,23 @@ interface Props {
 }
 
 export const Layout: React.FC<Props> = ({ children }) => {
-  const { query, setQuery } = useContext(SearchContext);
-  const { isLoading } = useContext(LayoutContext);
+  const { isLoading, query, setQuery } = useContext(LayoutContext);
 
   const router = useRouter();
 
   useEffect(() => {
-    if (router.query.query) setQuery(decodeURIComponent(router.query.query as string));
-  }, [router.query, setQuery]);
+    setQuery((router.query?.query ?? '') as string);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value) {
-      router.push(`/search/${encodeURIComponent(e.target.value)}`, undefined, { shallow: true });
-    } else {
-      router.push('/', undefined, { shallow: true });
-    }
-
     setQuery(e.target.value);
+  };
+
+  const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Enter' || !query) return;
+
+    router.push(`/search/${encodeURIComponent(query)}`);
   };
 
   return (
@@ -34,7 +33,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
         <header className="py-10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <h1 className="text-3xl font-bold text-white">Movie Time</h1>
-            <input type="text" name="name" id="name" className="sticky top-4 z-10 my-4 block w-full rounded-lg border-gray-300 px-4 shadow-sm sm:text-sm" placeholder="Search" value={query} onChange={onChange} />
+            <input type="text" name="name" id="name" className="sticky top-4 z-10 my-4 block w-full rounded-lg border-gray-300 px-4 shadow-sm sm:text-sm" placeholder="Search" value={query} onChange={onChange} onKeyUp={onKeyUp} />
           </div>
         </header>
       </div>
@@ -42,7 +41,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
       <AnimatePresence exitBeforeEnter>
         <motion.main className="-mt-32" key={router.pathname} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeInOut', duration: 0.25 }}>
           <div className="relative mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-            {isLoading ? (
+            {isLoading && (
               <div className="absolute z-10 flex h-full w-full items-center justify-center">
                 <div className="flex items-center rounded-lg bg-white px-4 py-3 shadow">
                   <span className="mr-4 text-2xl">Loading...</span>
@@ -52,9 +51,8 @@ export const Layout: React.FC<Props> = ({ children }) => {
                   </svg>
                 </div>
               </div>
-            ) : (
-              children
             )}
+            {children}
           </div>
         </motion.main>
       </AnimatePresence>
