@@ -33,7 +33,7 @@ interface Props {
 export const MovieList: React.FC<Props> = ({ movies }) => {
   return (
     <AnimatePresence exitBeforeEnter>
-      <motion.div variants={containerVariants} initial="hidden" animate="visible" className="md:grid-col-3 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <motion.div variants={containerVariants} initial="hidden" animate="visible" className=" md:grid-col-3 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {movies.map((movie) => (
           <motion.div layout variants={itemVariants} key={movie.id}>
             <MovieListItem movie={movie} />

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  @apply bg-gray-100;
+}
+
 body {
   @apply min-h-screen;
 }
