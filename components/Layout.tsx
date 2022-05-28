@@ -28,7 +28,9 @@ export const Layout: React.FC<Props> = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    setQuery((router.query?.query ?? '') as string);
+    if (!router.query.query) return;
+
+    setQuery(router.query.query as string);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query]);
 
@@ -53,7 +55,11 @@ export const Layout: React.FC<Props> = ({ children }) => {
                   <div className="flex h-16 items-center justify-between px-4 sm:px-0">
                     <div className="flex items-center pr-2 lg:px-0">
                       <div className="flex-shrink-0">
-                        <h2 className="font-semibold text-white">Movie Time</h2>
+                        <Link href="/">
+                          <a>
+                            <h2 className="font-semibold text-white">Movie Time</h2>
+                          </a>
+                        </Link>
                       </div>
                       <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-4">
@@ -119,7 +125,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
 
       <AnimatePresence exitBeforeEnter>
         <motion.main className="-mt-32" key={router.pathname} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeInOut', duration: 0.25 }}>
-          <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">{children}</div>
+          <div className="relative mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">{children}</div>
         </motion.main>
       </AnimatePresence>
     </div>

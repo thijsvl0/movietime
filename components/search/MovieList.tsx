@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import React from 'react';
 import { Movie } from 'tmdb-ts';
 import { MovieListItem } from './MovieListItem';
@@ -32,14 +32,12 @@ interface Props {
 
 export const MovieList: React.FC<Props> = ({ movies }) => {
   return (
-    <AnimatePresence exitBeforeEnter>
-      <motion.div variants={containerVariants} initial="hidden" animate="visible" className=" md:grid-col-3 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {movies.map((movie) => (
-          <motion.div layout variants={itemVariants} key={movie.id}>
-            <MovieListItem movie={movie} />
-          </motion.div>
-        ))}
-      </motion.div>
-    </AnimatePresence>
+    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="md:grid-col-3 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {movies.map((movie) => (
+        <motion.div layout variants={itemVariants} key={movie.id}>
+          <MovieListItem movie={movie} />
+        </motion.div>
+      ))}
+    </motion.div>
   );
 };

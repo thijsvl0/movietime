@@ -41,7 +41,7 @@ const Search: NextPage = () => {
   return (
     <>
       <Head>{query && <title>{query} | MovieTime</title>}</Head>
-      {movies && <MovieList movies={movies} />}
+      <MovieList movies={movies} />
       {isLoading && <LoadingPopup />}
     </>
   );

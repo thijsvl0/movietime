@@ -1,6 +1,6 @@
 export const LoadingPopup: React.FC = () => {
   return (
-    <div className="absolute z-10 flex h-full w-full items-start justify-center">
+    <div className="absolute top-0 flex h-full w-full items-start justify-center">
       <div className="flex items-center rounded-lg bg-white px-4 py-3 shadow">
         <span className="mr-4 text-2xl">Loading...</span>
         <svg className="h-5 w-5 animate-spin text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
