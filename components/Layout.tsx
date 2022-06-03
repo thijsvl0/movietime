@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect, Fragment } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { LayoutContext } from '../context/Layout';
 import { Disclosure } from '@headlessui/react';
@@ -23,7 +23,6 @@ const navigation: MenuItem[] = [
 
 export const Layout: React.FC<Props> = ({ children }) => {
   const { query, setQuery } = useContext(LayoutContext);
-  const { header } = useContext(LayoutContext);
 
   const router = useRouter();
 
@@ -114,13 +113,6 @@ export const Layout: React.FC<Props> = ({ children }) => {
             </>
           )}
         </Disclosure>
-        {header && (
-          <header className="py-10">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <h1 className="text-3xl font-bold text-white">{header}</h1>
-            </div>
-          </header>
-        )}
       </div>
 
       <AnimatePresence exitBeforeEnter>

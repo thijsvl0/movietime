@@ -1,22 +1,17 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import { useContext, useEffect } from 'react';
+import { ParsedUrlQuery } from 'querystring';
 import { MovieDetails } from 'tmdb-ts';
-import { LayoutContext } from '../../context/Layout';
 import { connect } from '../../lib/tmdb';
 
 interface Props {
   movie: MovieDetails;
 }
+interface Params extends ParsedUrlQuery {
+  id: string;
+}
 
 const Movie: NextPage<Props> = ({ movie }) => {
-  const { setHeader } = useContext(LayoutContext);
-
-  useEffect(() => {
-    setHeader(movie.title);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
       <Head>
@@ -29,15 +24,23 @@ const Movie: NextPage<Props> = ({ movie }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { id } = query;
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+};
 
-  const movie = await connect().movies.details(parseInt(id as string));
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { id } = context.params as Params;
+
+  const movie = await connect().movies.details(parseInt(id));
 
   return {
     props: {
       movie,
     },
+    revalidate: 86400,
   };
 };
 
