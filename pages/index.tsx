@@ -32,6 +32,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const popularData = await connect().movies.popular();
   const upcomingData = await connect().movies.upcoming();
 
+  console.log(popularData);
+  console.log(upcomingData);
+
   return {
     props: {
       popularMovies: popularData.results,
