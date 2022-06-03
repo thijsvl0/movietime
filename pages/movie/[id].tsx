@@ -15,7 +15,7 @@ const Movie: NextPage<Props> = ({ movie }) => {
   return (
     <>
       <Head>
-        <title>{movie && movie.title} | MovieTime</title>
+        <title>{movie && movie.title} | Movie Time</title>
       </Head>
       <div className="overflow-hidden rounded-lg bg-white shadow">
         <div className="px-4 py-5 sm:p-6">{movie.overview}</div>

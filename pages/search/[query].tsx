@@ -20,7 +20,7 @@ const Search: NextPage<Props> = ({ movies }) => {
 
   return (
     <>
-      <Head>{query && <title>{query} | MovieTime</title>}</Head>
+      <Head>{query && <title>{query} | Movie Time</title>}</Head>
       <Header>Search</Header>
       <MovieList movies={movies} />
     </>
