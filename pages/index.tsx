@@ -34,8 +34,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      popularMovies: popularData.results,
-      upcomingMovies: upcomingData.results,
+      popularMovies: popularData?.results ?? [],
+      upcomingMovies: upcomingData?.results ?? [],
     },
     revalidate: 86400,
   };
