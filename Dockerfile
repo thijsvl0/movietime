@@ -21,8 +21,8 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-ARG tmdb_key 
-ENV TMDB_KEY $tmdb_key
+ARG TMDB_KEY 
+ENV TMDB_KEY $TMDB_KEY
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
