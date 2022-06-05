@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
+import { MovieResult } from 'moviedb-promise/dist/request-types';
 import React from 'react';
-import { Movie } from 'tmdb-ts';
 import { MovieListItem } from './MovieListItem';
 
 const containerVariants = {
@@ -27,7 +27,7 @@ const itemVariants = {
 };
 
 interface Props {
-  movies: Movie[];
+  movies: MovieResult[];
 }
 
 export const MovieList: React.FC<Props> = ({ movies }) => {

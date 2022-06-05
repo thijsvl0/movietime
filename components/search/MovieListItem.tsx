@@ -1,9 +1,9 @@
+import { MovieResult } from 'moviedb-promise/dist/request-types';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { Movie } from 'tmdb-ts';
 interface Props {
-  movie: Movie;
+  movie: MovieResult;
 }
 
 export const MovieListItem: React.FC<Props> = ({ movie }) => {
