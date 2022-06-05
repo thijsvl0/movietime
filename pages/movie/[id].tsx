@@ -8,9 +8,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
 
 import { connect } from '../../lib/moviedb';
+import { Navigation, Pagination } from 'swiper';
 
 interface Props {
   movie: MovieResponse;
@@ -28,11 +28,11 @@ const Movie: NextPage<Props> = ({ movie, images }) => {
         <title>{movie && movie.title} | Movie Time</title>
       </Head>
       <div className="py-5">
-        <div className="grid grid-cols-1 gap-y-4 md:grid-cols-9 md:gap-x-4">
-          <div className="relative col-span-2 aspect-[9/16] overflow-hidden rounded-lg shadow">
+        <div className="grid grid-cols-1 gap-y-4 md:grid-cols-12 md:gap-x-4">
+          <div className="relative col-span-3 aspect-[9/16] overflow-hidden rounded-lg shadow">
             <Image src={movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : '/no_image.webp'} alt={movie.title} layout="fill" objectFit="cover" loading="eager" />
           </div>
-          <Swiper className="relative col-span-7 aspect-[16/9] w-full overflow-hidden rounded-lg shadow">
+          <Swiper modules={[Navigation, Pagination]} navigation pagination className="relative col-span-9 aspect-video h-full w-full overflow-hidden rounded-lg shadow md:aspect-auto">
             {images.backdrops?.map((image, key) => (
               <SwiperSlide key={key}>
                 <Image src={`https://image.tmdb.org/t/p/original${image.file_path}`} alt={movie.title} layout="fill" objectFit="cover" loading="eager" />
