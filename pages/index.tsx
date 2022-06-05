@@ -1,13 +1,13 @@
+import { MovieResult } from 'moviedb-promise/dist/request-types';
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import { Movie } from 'tmdb-ts';
 import Header from '../components/Header';
 import { MovieList } from '../components/home/MovieList';
-import { connect } from '../lib/tmdb';
+import { connect } from '../lib/moviedb';
 
 interface Props {
-  popularMovies: Movie[];
-  upcomingMovies: Movie[];
+  popularMovies: MovieResult[];
+  upcomingMovies: MovieResult[];
 }
 
 const Home: NextPage<Props> = ({ popularMovies, upcomingMovies }) => {
@@ -28,9 +28,9 @@ const Home: NextPage<Props> = ({ popularMovies, upcomingMovies }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const popularData = await connect().movies.popular();
-  const upcomingData = await connect().movies.upcoming();
+export const getStaticProps: GetStaticProps = async () => {
+  const popularData = await connect().moviePopular();
+  const upcomingData = await connect().upcomingMovies({});
 
   return {
     props: {

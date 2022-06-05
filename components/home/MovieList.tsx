@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MovieListItem } from './MovieListItem';
-import { Movie } from 'tmdb-ts';
+import { MovieResult } from 'moviedb-promise/dist/request-types';
 
 const containerVariants = {
   visible: {
@@ -27,12 +27,12 @@ const itemVariants = {
 };
 
 interface Props {
-  movies: Movie[];
+  movies: MovieResult[];
 }
 
 export const MovieList: React.FC<Props> = ({ movies }) => {
   return (
-    <div className="hide-scroll-bar flex overflow-x-scroll pb-10">
+    <div className="hide-scroll-bar flex overflow-x-scroll pb-8">
       <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex flex-nowrap gap-x-4">
         {movies.map((movie) => (
           <motion.div layout variants={itemVariants} key={movie.id}>

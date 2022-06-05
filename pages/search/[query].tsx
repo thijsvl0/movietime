@@ -1,14 +1,14 @@
+import { MovieResult } from 'moviedb-promise/dist/request-types';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import { Movie } from 'tmdb-ts';
 import Header from '../../components/Header';
 import { MovieList } from '../../components/search/MovieList';
-import { connect } from '../../lib/tmdb';
+import { connect } from '../../lib/moviedb';
 
 interface Props {
-  movies: Movie[];
+  movies: MovieResult[];
 }
 interface Params extends ParsedUrlQuery {
   query: string;
@@ -37,7 +37,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const { query } = context.params as Params;
 
-  const data = await connect().search.movies({ query: query });
+  const data = await connect().searchMovie({ query: query });
 
   return {
     props: {
