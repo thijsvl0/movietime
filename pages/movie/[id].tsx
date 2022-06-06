@@ -13,6 +13,8 @@ import { connect } from '../../lib/moviedb';
 import { Navigation, Pagination } from 'swiper';
 import GenreBadge from '../../components/GenreBadge';
 import SubTitle from '../../components/SubTitle';
+import Title from '../../components/Title';
+import { StarIcon } from '@heroicons/react/solid';
 
 interface Props {
   movie: MovieResponse;
@@ -28,8 +30,34 @@ const Movie: NextPage<Props> = ({ movie, images, credits }) => {
   return (
     <>
       <Head>
-        <title>{movie && movie.title} | Movie Time</title>
+        <title>{movie.title} | Movie Time</title>
       </Head>
+      <div className="flex items-center justify-between">
+        <div>
+          <Title>{movie.title}</Title>
+          <div className="-mt-4 text-gray-400">
+            {new Date(movie.release_date ?? '').getUTCFullYear()}
+            {movie.runtime && (
+              <>
+                {' '}
+                - {movie.runtime > 60 && <>{(movie.runtime / 60).toFixed(0)}hr</>} {movie.runtime % 60}m
+              </>
+            )}
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-x-1 pt-5 text-gray-400">
+          <div className="col-span-3 ">Rating</div>
+          <div className="col-span-1 text-yellow-300">
+            <StarIcon className="h-12" />
+          </div>
+          <div className="col-span-2">
+            <span className="inline-flex items-end gap-x-1">
+              <h4 className="text-lg leading-normal text-white">{movie.vote_average}</h4> / 10
+            </span>
+            {movie.vote_count && <div className="text-sm">{(movie.vote_count / 1000).toPrecision(2)}K</div>}
+          </div>
+        </div>
+      </div>
       <div className="py-5">
         <div className="grid grid-cols-1 gap-y-4 md:grid-cols-12 md:gap-x-4">
           <div className="relative aspect-[9/16] overflow-hidden rounded-lg shadow md:col-span-3">
