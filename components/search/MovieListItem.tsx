@@ -13,7 +13,16 @@ export const MovieListItem: React.FC<Props> = ({ movie }) => {
     <Link href={`/movie/${movie.id}`}>
       <div className="group h-full cursor-pointer rounded-lg bg-white shadow">
         <div className="relative aspect-square w-full overflow-hidden rounded-lg rounded-b-none ">
-          <Image src={movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : '/no_image.webp'} placeholder="blur" blurDataURL={PLACEHOLDER_IMAGE} alt={movie.title} layout="fill" objectFit="cover" className="transition-opacity duration-500 group-hover:opacity-75" />
+          <Image
+            src={movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : '/no_image.webp'}
+            placeholder="blur"
+            blurDataURL={PLACEHOLDER_IMAGE}
+            alt={movie.title}
+            layout="fill"
+            objectFit="cover"
+            className="transition-opacity duration-500 group-hover:opacity-75"
+            loading="eager"
+          />
         </div>
         <div className="px-5 pb-6 pt-4 sm:px-6">
           <span className="inline-flex items-center text-yellow-300">
