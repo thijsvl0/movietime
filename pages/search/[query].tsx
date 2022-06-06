@@ -3,7 +3,7 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import Header from '../../components/Header';
+import Title from '../../components/Title';
 import { MovieList } from '../../components/search/MovieList';
 import { connect } from '../../lib/moviedb';
 
@@ -21,7 +21,7 @@ const Search: NextPage<Props> = ({ movies }) => {
   return (
     <>
       <Head>{query && <title>{query} | Movie Time</title>}</Head>
-      <Header>Search</Header>
+      <Title>Search</Title>
       <MovieList movies={movies} />
     </>
   );

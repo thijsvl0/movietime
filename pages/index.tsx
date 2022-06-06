@@ -1,7 +1,7 @@
 import { MovieResult } from 'moviedb-promise/dist/request-types';
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import Header from '../components/Header';
+import Title from '../components/Title';
 import { MovieList } from '../components/home/MovieList';
 import { connect } from '../lib/moviedb';
 
@@ -17,11 +17,11 @@ const Home: NextPage<Props> = ({ popularMovies, upcomingMovies }) => {
         <title>Movie Time</title>
       </Head>
       <section>
-        <Header>Popular Now</Header>
+        <Title>Popular Now</Title>
         <MovieList movies={popularMovies} />
       </section>
       <section>
-        <Header type="dark">Upcoming</Header>
+        <Title type="dark">Upcoming</Title>
         <MovieList movies={upcomingMovies} />
       </section>
     </>
