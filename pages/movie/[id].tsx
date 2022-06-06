@@ -15,6 +15,8 @@ import GenreBadge from '../../components/GenreBadge';
 import SubTitle from '../../components/SubTitle';
 import Title from '../../components/Title';
 import { StarIcon } from '@heroicons/react/solid';
+import CastItem from '../../components/movie/CastItem';
+import { PLACEHOLDER_IMAGE } from '../../utils';
 
 interface Props {
   movie: MovieResponse;
@@ -45,10 +47,10 @@ const Movie: NextPage<Props> = ({ movie, images, credits }) => {
             )}
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-x-1 pt-5 text-gray-400">
+        <div className="hidden grid-cols-3 gap-x-1 pt-5 text-gray-400 md:grid">
           <div className="col-span-3 ">Rating</div>
-          <div className="col-span-1 text-yellow-300">
-            <StarIcon className="h-12" />
+          <div className="col-span-1">
+            <StarIcon className="h-12 text-yellow-300" />
           </div>
           <div className="col-span-2">
             <span className="inline-flex items-end gap-x-1">
@@ -61,7 +63,7 @@ const Movie: NextPage<Props> = ({ movie, images, credits }) => {
       <div className="py-5">
         <div className="grid grid-cols-1 gap-y-4 md:grid-cols-12 md:gap-x-4">
           <div className="relative aspect-[9/16] overflow-hidden rounded-lg shadow md:col-span-3">
-            <Image src={movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : '/no_image.webp'} alt={movie.title} layout="fill" objectFit="cover" loading="eager" />
+            <Image src={movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : '/no_image.webp'} placeholder="blur" blurDataURL={PLACEHOLDER_IMAGE} alt={movie.title} layout="fill" objectFit="cover" />
           </div>
           <div className="md:col-span-8 md:row-start-2">
             <div className="mb-4 flex flex-wrap gap-2">
@@ -70,27 +72,23 @@ const Movie: NextPage<Props> = ({ movie, images, credits }) => {
               ))}
             </div>
             <p>{movie.overview}</p>
+            <div className="mt-4 block md:hidden">
+              <span className="inline-flex items-end gap-x-1 text-gray-400">
+                <StarIcon className="h-8 text-yellow-300" />
+                <span className="text-gray-800">{movie.vote_average}</span>/<span>10</span> - {movie.vote_count && <div>{(movie.vote_count / 1000).toPrecision(2)}K</div>}
+              </span>
+            </div>
           </div>
           <div className="md:col-span-4 md:row-start-2">
             <SubTitle type="dark">Top Cast</SubTitle>
             {credits.cast?.map((cast) => (
-              <div key={cast.id} className="mb-2 grid grid-cols-6">
-                <div className="col-span-2 px-4">
-                  <div className="relative aspect-square w-full overflow-hidden rounded-full">
-                    <Image src={`https://image.tmdb.org/t/p/original${cast.profile_path}`} alt={cast.name} layout="fill" objectFit="cover" />
-                  </div>
-                </div>
-                <div className="col-span-4 flex flex-col justify-center">
-                  <div>{cast.name}</div>
-                  <div className="text-sm text-gray-700">as {cast.character}</div>
-                </div>
-              </div>
+              <CastItem cast={cast} key={cast.id} />
             ))}
           </div>
           <Swiper modules={[Navigation, Pagination]} navigation pagination className="relative col-span-full row-start-3 aspect-video h-full w-full overflow-hidden rounded-lg shadow md:col-start-4 md:row-start-1 md:aspect-auto">
             {images.backdrops?.map((image, key) => (
               <SwiperSlide key={key}>
-                <Image src={`https://image.tmdb.org/t/p/original${image.file_path}`} alt={movie.title} layout="fill" objectFit="cover" loading="eager" />
+                <Image src={`https://image.tmdb.org/t/p/original${image.file_path}`} placeholder="blur" blurDataURL={PLACEHOLDER_IMAGE} alt={movie.title} layout="fill" objectFit="cover" />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -117,7 +115,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const images = await connect().movieImages({ id: id });
   const credits = await connect().movieCredits({ id: id });
 
-  credits.cast = credits.cast?.sort((a, b) => (b?.popularity ?? 0) - (a?.popularity ?? 0)).slice(0, 5);
+  credits.cast = credits.cast?.sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0)).slice(0, 5);
 
   return {
     props: {
