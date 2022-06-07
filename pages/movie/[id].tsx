@@ -63,7 +63,7 @@ const Movie: NextPage<Props> = ({ movie, images, credits }) => {
       <div className="py-5">
         <div className="grid grid-cols-1 gap-y-4 md:grid-cols-12 md:gap-x-4">
           <div className="relative aspect-[9/16] overflow-hidden rounded-lg shadow md:col-span-3">
-            <Image src={movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : '/no_image.webp'} placeholder="blur" blurDataURL={PLACEHOLDER_IMAGE} alt={movie.title} layout="fill" objectFit="cover" loading="eager" />
+            <Image src={movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : '/no_image.webp'} placeholder="blur" blurDataURL={PLACEHOLDER_IMAGE} alt={movie.title} layout="fill" sizes="(max-width: 640px) 100vw, 640px" quality={65} objectFit="cover" loading="eager" />
           </div>
           <div className="md:col-span-8 md:row-start-2">
             <div className="mb-4 flex flex-wrap gap-2">
@@ -88,7 +88,7 @@ const Movie: NextPage<Props> = ({ movie, images, credits }) => {
           <Swiper modules={[Navigation, Pagination]} navigation pagination className="relative col-span-full row-start-3 aspect-video h-full w-full overflow-hidden rounded-lg shadow md:col-start-4 md:row-start-1 md:aspect-auto">
             {images.backdrops?.map((image, key) => (
               <SwiperSlide key={key}>
-                <Image src={`https://image.tmdb.org/t/p/original${image.file_path}`} placeholder="blur" blurDataURL={PLACEHOLDER_IMAGE} alt={movie.title} layout="fill" objectFit="cover" loading="eager" />
+                <Image src={`https://image.tmdb.org/t/p/original${image.file_path}`} placeholder="blur" blurDataURL={PLACEHOLDER_IMAGE} alt={movie.title} layout="fill" sizes="(max-width: 640px) 100vw, 640px" quality={65} objectFit="cover" loading="eager" />
               </SwiperSlide>
             ))}
           </Swiper>

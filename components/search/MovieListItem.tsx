@@ -19,6 +19,8 @@ export const MovieListItem: React.FC<Props> = ({ movie }) => {
             blurDataURL={PLACEHOLDER_IMAGE}
             alt={movie.title}
             layout="fill"
+            sizes="(max-width: 640px) 100vw, 640px"
+            quality={65}
             objectFit="cover"
             className="transition-opacity duration-500 group-hover:opacity-75"
             loading="eager"

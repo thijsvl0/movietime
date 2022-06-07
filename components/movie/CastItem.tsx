@@ -12,7 +12,7 @@ const CastItem: FC<Props> = ({ cast }) => {
     <div className="mb-2 grid grid-cols-6">
       <div className="col-span-2 px-4">
         <div className="relative aspect-square w-full overflow-hidden rounded-full">
-          <Image src={cast.profile_path ? `https://image.tmdb.org/t/p/original${cast.profile_path}` : '/no_image.webp'} placeholder="blur" blurDataURL={PLACEHOLDER_IMAGE} alt={cast.name} layout="fill" objectFit="cover" loading="eager" />
+          <Image src={cast.profile_path ? `https://image.tmdb.org/t/p/original${cast.profile_path}` : '/no_image.webp'} placeholder="blur" blurDataURL={PLACEHOLDER_IMAGE} alt={cast.name} layout="fill" sizes="(max-width: 640px) 25vw, 160px" quality={65} objectFit="cover" loading="eager" />
         </div>
       </div>
       <div className="col-span-4 flex flex-col justify-center">
