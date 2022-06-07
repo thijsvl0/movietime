@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import IndexProvider from '../context';
 import { Layout } from '../components/Layout';
+import NextNProgress from 'nextjs-progressbar';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -17,6 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#ffffff" />
         <title>MovieTime</title>
       </Head>
+      <NextNProgress />
       <IndexProvider>
         <Layout>
           <Component {...pageProps} />
