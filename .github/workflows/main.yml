@@ -60,3 +60,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta_movietime.outputs.tags }}
           labels: ${{ steps.meta_movietime.outputs.labels }}
+          build-args: |
+            TMDB_KEY=${{ secrets.TMDB_KEY }}
