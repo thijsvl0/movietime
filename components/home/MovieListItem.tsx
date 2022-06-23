@@ -3,7 +3,7 @@ import { MovieResult } from 'moviedb-promise/dist/request-types';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { PLACEHOLDER_IMAGE } from '../../utils';
+import { PLACEHOLDER_IMAGE, slugify } from '../../utils';
 
 interface Props {
   movie: MovieResult;
@@ -11,7 +11,7 @@ interface Props {
 
 export const MovieListItem: React.FC<Props> = ({ movie }) => {
   return (
-    <Link href={`/movie/${movie.id}`}>
+    <Link href={`/movie/${movie.id}-${movie.title ? slugify(movie.title.slice(0, 40)) : ''}`}>
       <div className="group h-full w-44 cursor-pointer rounded-lg bg-white shadow">
         <div className="relative aspect-square w-full overflow-hidden rounded-lg rounded-b-none">
           <Image
