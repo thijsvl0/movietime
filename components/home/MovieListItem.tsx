@@ -11,7 +11,7 @@ interface Props {
 
 export const MovieListItem: React.FC<Props> = ({ movie }) => {
   return (
-    <Link href={`/movie/${movie.id}-${movie.title ? slugify(movie.title.slice(0, 40)) : ''}`}>
+    <Link href={`/movie/${movie.id}-${movie.title ? slugify(movie.title.slice(0, 40)) : ''}`} prefetch={false}>
       <div className="group h-full w-44 cursor-pointer rounded-lg bg-white shadow">
         <div className="relative aspect-square w-full overflow-hidden rounded-lg rounded-b-none">
           <Image
