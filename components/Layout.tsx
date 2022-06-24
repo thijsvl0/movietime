@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
 import Footer from './Footer';
 import Header from './Header';
 
@@ -14,11 +14,13 @@ export const Layout: React.FC<Props> = ({ children }) => {
   return (
     <div className="min-h-full">
       <Header />
-      <AnimatePresence exitBeforeEnter>
-        <motion.main className="-mt-32" key={router.pathname} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeInOut', duration: 0.25 }}>
-          <div className="relative mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">{children}</div>
-        </motion.main>
-      </AnimatePresence>
+      <LazyMotion features={domAnimation}>
+        <AnimatePresence exitBeforeEnter>
+          <m.main className="-mt-32" key={router.pathname} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ ease: 'easeInOut', duration: 0.25 }}>
+            <div className="relative mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">{children}</div>
+          </m.main>
+        </AnimatePresence>
+      </LazyMotion>
       <Footer />
     </div>
   );
