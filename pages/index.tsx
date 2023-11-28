@@ -1,8 +1,9 @@
-import { MovieResult } from 'moviedb-promise/dist/request-types';
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
+
 import Head from 'next/head';
-import Title from '../components/Title';
 import { MovieList } from '../components/home/MovieList';
+import { MovieResult } from 'moviedb-promise/dist/request-types';
+import Title from '../components/Title';
 import { connect } from '../lib/moviedb';
 
 interface Props {
@@ -28,7 +29,7 @@ const Home: NextPage<Props> = ({ popularMovies, upcomingMovies }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const popularData = await connect().moviePopular();
   const upcomingData = await connect().upcomingMovies({});
 

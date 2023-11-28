@@ -43,7 +43,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/thijsvl12/movietime
+            ghcr.io/thijsvl0/movietime
           tags: |
             type=schedule
             type=ref,event=branch
